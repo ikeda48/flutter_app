@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 void main() {
   runApp(MyApp());
@@ -104,6 +105,39 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            TypeAheadField(
+              textFieldConfiguration: TextFieldConfiguration(
+                  autofocus: true,
+                  style: DefaultTextStyle.of(context).style.copyWith(
+                      fontStyle: FontStyle.italic
+                  ),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder()
+                  )
+              ),
+              suggestionsCallback: (pattern) async {
+                List<String> matches = [
+                  'ABC',
+                  'DEF',
+                  'HIJ',
+                  'TEST',
+                  'TEST2',
+                ];
+                matches.retainWhere((s) =>   s.toLowerCase().contains(pattern.toLowerCase()));
+                return matches;
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  leading: Icon(Icons.shopping_cart),
+                  title: Text(suggestion),
+                );
+              },
+              onSuggestionSelected: (suggestion) {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => ProductPage(product: suggestion)
+                // ));
+              },
+            )
           ],
         ),
       ),
