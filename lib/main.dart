@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  final TextEditingController _typeAheadController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -72,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -108,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TypeAheadField(
               textFieldConfiguration: TextFieldConfiguration(
                   autofocus: true,
+                  controller: this._typeAheadController,
                   style: DefaultTextStyle.of(context).style.copyWith(
                       fontStyle: FontStyle.italic
                   ),
@@ -133,9 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               onSuggestionSelected: (suggestion) {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => ProductPage(product: suggestion)
-                // ));
+                this._typeAheadController.text = suggestion;
               },
             )
           ],
